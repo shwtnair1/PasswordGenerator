@@ -13,7 +13,7 @@ function App() {
   const [password,setPassword] = useState('');
 
   const handleChange = (e) =>{
-    if(e.target.name == 'password-strength')
+    if(e.target.name === 'password-strength')
     {
       setState(prevState=>({...prevState,[e.target.name]:e.target.value}))
     }else{
