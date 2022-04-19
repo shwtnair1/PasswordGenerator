@@ -1,22 +1,78 @@
-import logo from './logo.svg';
 import './App.css';
+import React,{useState} from 'react';
+import {numbers,upperCaseLetters,lowerCaseLetters,specialCharacters} from './Characters';
 
 function App() {
+  const [state,setState] = useState({
+    'password-strength':26,
+    'uppercase-letters':false,
+    'lowercase-letters':false,
+    'include-numbers':false,
+    'include-symbols':false,
+  });
+  const [password,setPassword] = useState('');
+
+  const handleChange = (e) =>{
+    setState(prevState=>({...prevState,[e.target.name]:e.target.value}))
+  }
+
+  const handleGeneratePassword = () =>{
+    let charSet = '';
+    charSet = state['include-numbers'] ? charSet+numbers:charSet;
+    charSet = state['include-symbols'] =='on' ? charSet+specialCharacters:charSet;
+    charSet = state['lowercase-letters'] =='on' ?charSet+lowerCaseLetters:charSet;
+    charSet = state['uppercase-letters'] =='on' ? charSet+upperCaseLetters:charSet;
+    setPassword(generatePassword(charSet));
+  }
+
+  const generatePassword=(charSet)=>{
+    console.log(charSet)
+    let retVal = "";
+    for (var i = 0, n = charSet.length; i < state['password-strength']; i++) {
+        retVal += charSet.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
+  }
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div className="App-container">
+          <div className="title-container">
+              <h2>Password Generator</h2>
+          </div>
+          <div className="password-container">
+            {password}
+          </div>
+          <div className="form-group">
+            <label htmlFor="password-strength">Password length</label>
+            <input className="pw" 
+              defaultValue={state['password-strength']}  
+              type="number" 
+              id="password-strength" 
+              name="password-strength" 
+              max="26" 
+              min="8"
+              onChange={handleChange}
+               />
+          </div>
+          <div className="form-group">
+            <label htmlFor="uppercase-letters">Add UpperCase letters</label>
+            <input type="checkbox" id="uc" name="uppercase-letters" onChange={handleChange} checked={state['uppercase-letters']}/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="lowercase-letters">Add Lowercase letters</label>
+            <input type="checkbox" id="lc" name="lowercase-letters" onChange={handleChange} checked={state['lowercase-letters']}/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="include-numbers">Include Numbers</label>
+            <input type="checkbox" id="incnum" name="include-numbers" onChange={handleChange} checked={state['include-numbers']}/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="include-symbols">Include Symbols</label>
+            <input type="checkbox" id="incsym" name="include-symbols" onChange={handleChange} checked={state['include-symbols']} />
+          </div>
+          <button className='generate-button' onClick={handleGeneratePassword}>Generate Password</button>
+        </div>
       </header>
     </div>
   );
