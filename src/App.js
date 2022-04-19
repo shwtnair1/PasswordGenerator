@@ -13,20 +13,24 @@ function App() {
   const [password,setPassword] = useState('');
 
   const handleChange = (e) =>{
-    setState(prevState=>({...prevState,[e.target.name]:e.target.value}))
+    if(e.target.name == 'password-strength')
+    {
+      setState(prevState=>({...prevState,[e.target.name]:e.target.value}))
+    }else{
+      setState(prevState=>({...prevState,[e.target.name]:!prevState[e.target.name]}))
+    }
   }
 
-  const handleGeneratePassword = () =>{
+  const handleGeneratePassword = () =>{ console.log(state)
     let charSet = '';
     charSet = state['include-numbers'] ? charSet+numbers:charSet;
-    charSet = state['include-symbols'] =='on' ? charSet+specialCharacters:charSet;
-    charSet = state['lowercase-letters'] =='on' ?charSet+lowerCaseLetters:charSet;
-    charSet = state['uppercase-letters'] =='on' ? charSet+upperCaseLetters:charSet;
+    charSet = state['include-symbols']  ? charSet+specialCharacters:charSet;
+    charSet = state['lowercase-letters'] ?charSet+lowerCaseLetters:charSet;
+    charSet = state['uppercase-letters'] ? charSet+upperCaseLetters:charSet;
     setPassword(generatePassword(charSet));
   }
 
   const generatePassword=(charSet)=>{
-    console.log(charSet)
     let retVal = "";
     for (var i = 0, n = charSet.length; i < state['password-strength']; i++) {
         retVal += charSet.charAt(Math.floor(Math.random() * n));
