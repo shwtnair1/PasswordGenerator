@@ -57,19 +57,19 @@ function App() {
           </div>
           <div className="form-group">
             <label htmlFor="uppercase-letters">Add UpperCase letters</label>
-            <input type="checkbox" id="uc" name="uppercase-letters" onChange={handleChange} checked={state['uppercase-letters']}/>
+            <input type="checkbox" id="uc" name="uppercase-letters" onChange={handleChange} />
           </div>
           <div className="form-group">
             <label htmlFor="lowercase-letters">Add Lowercase letters</label>
-            <input type="checkbox" id="lc" name="lowercase-letters" onChange={handleChange} checked={state['lowercase-letters']}/>
+            <input type="checkbox" id="lc" name="lowercase-letters" onChange={handleChange} />
           </div>
           <div className="form-group">
             <label htmlFor="include-numbers">Include Numbers</label>
-            <input type="checkbox" id="incnum" name="include-numbers" onChange={handleChange} checked={state['include-numbers']}/>
+            <input type="checkbox" id="incnum" name="include-numbers" onChange={handleChange} />
           </div>
           <div className="form-group">
             <label htmlFor="include-symbols">Include Symbols</label>
-            <input type="checkbox" id="incsym" name="include-symbols" onChange={handleChange} checked={state['include-symbols']} />
+            <input type="checkbox" id="incsym" name="include-symbols" onChange={handleChange} />
           </div>
           <button className='generate-button' onClick={handleGeneratePassword}>Generate Password</button>
         </div>
